@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IG Salary</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+  <h2>Signup</h2>
+  <button onclick="signup()">Signup</button>
+
+<script>
+async function signup() {
+  await fetch('/signup', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      username: document.getElementById('user').value,
+      password: document.getElementById('pass').value
+    })
+  });
+  alert("Signup done");
+}
+
+async function login() {
+  let res = await fetch('/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      username: document.getElementById('user').value,
+      password: document.getElementById('pass').value
+    })
+  });
+  let data = await res.json();
+  localStorage.setItem("user", JSON.stringify(data));
+  window.location = "dashboard.html";
+}
+</script>
+</body>
+</html>
